@@ -17,3 +17,14 @@ class Order(models.Model):
     users = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="orders"
     )
+
+
+class OrderProduct(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.CharField(max_length=50)
+    price = models.FloatField()
+    quantity = models.PositiveIntegerField(default=1)
+    buyer = models.IntegerField()
+    order = models.ForeignKey(
+        "orders.Order", on_delete=models.CASCADE, related_name="order_products"
+    )
