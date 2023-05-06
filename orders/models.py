@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 
 
@@ -11,20 +12,22 @@ class Order(models.Model):
     status = models.CharField(
         max_length=20, choices=StatusOrder.choices, default=StatusOrder.PEDIDO_REALIZADO
     )
-    total_price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    total_quantity = models.PositiveIntegerField(default=0)
-    buyed_at = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    users = models.ForeignKey(
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    buyed_at = models.DateTimeField(default=timezone.now)
+    buyer = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="orders"
+    )
+    products = models.ManyToManyField(
+        "products.Product", through="orders.OrderProduct", related_name="orders"
     )
 
 
 class OrderProduct(models.Model):
-    name = models.CharField(max_length=50)
-    category = models.CharField(max_length=50)
     price = models.FloatField()
-    quantity = models.PositiveIntegerField(default=1)
-    buyer = models.IntegerField()
+    quantity = models.PositiveIntegerField(default=0)
     order = models.ForeignKey(
         "orders.Order", on_delete=models.CASCADE, related_name="order_products"
+    )
+    product = models.ForeignKey(
+        "products.Product", on_delete=models.CASCADE
     )
