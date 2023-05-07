@@ -19,3 +19,7 @@ class AddressSerializer(serializers.ModelSerializer):
                 "read_only": True
             }
         }
+    
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        return instance
