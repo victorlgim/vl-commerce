@@ -1,8 +1,9 @@
 from pathlib import Path
 from datetime import timedelta
+from django.core.management.utils import get_random_secret_key
+
 import os
 import dotenv
-from django.core.management.utils import get_random_secret_key
 import dj_database_url
 
 dotenv.load_dotenv()
@@ -15,15 +16,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-THIRD_PARTY_APPS = ["rest_framework", "drf_spectacular"]
-
-MY_APPS = [
-    "users",
-    "products",
-    "carts",
-    "addresses",
-    "orders",
-]
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS += [RENDER_EXTERNAL_HOSTNAME, "0.0.0.0"]
 
 DJANGO_APPS = [
     "django.contrib.admin",
@@ -34,10 +29,23 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_APPS = THIRD_PARTY_APPS + MY_APPS + DJANGO_APPS
+THIRD_PARTY_APPS = [
+    "rest_framework",
+    "drf_spectacular",
+]
+
+MY_APPS = [
+    "users",
+    "carts",
+    "products",
+    "orders"   
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -85,6 +93,7 @@ if DATABASE_URL:
     )
     DATABASES["default"].update(db_from_env)
     DEBUG = False
+
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -104,6 +113,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "VL Commerce",
+    "DESCRIPTION": "A VL Commerce é uma API disponibilizada para uma plataforma de e-commerce de produtos.",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -114,25 +141,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 5,
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-}
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=10),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
-}
-
-SPECTACULAR_SETTINGS = {
-    "TITLE": "VL Commerce ",
-    "DESCRIPTION": "VL Commerce é uma plataforma de e-commerce que possibilita o cadastro e consumo de produtos, relacionando administradores, vendedores e usuários.",
-    "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,
-}
