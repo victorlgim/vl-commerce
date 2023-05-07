@@ -7,7 +7,7 @@ class Product(models.Model):
     img = models.CharField(max_length=200, blank=True)
     inventory = models.IntegerField()
     price = models.FloatField()
-    seller = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    seller = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="products")
 
 
 class Category(models.Model):
