@@ -1,6 +1,16 @@
 from rest_framework import serializers
 from .models import User, Address
 
+class SellerSerializer(serializers.ModelSerializer):
+    class Meta:
+          model = User
+          fields = [
+             "id",
+             "first_name",
+             "last_name",
+             "email"
+          ]
+
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
@@ -69,3 +79,4 @@ class UserSerializer(serializers.ModelSerializer):
         if password:
             instance.set_password(password)
         return super().update(instance, validated_data)
+
