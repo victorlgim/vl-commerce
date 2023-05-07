@@ -49,3 +49,19 @@ class UserSerializer(serializers.ModelSerializer):
                 "write_only": True
             }
         }
+
+    address = AddressSerializer()
+
+    def create(self, validated_data):
+        address = validated_data.pop("address")
+        address_obj = Address.objects.create(**address)
+
+        user = {
+            User.objects.create_superuser
+            if validated_data.get("is_superuser")
+            else User.objects.create_user
+        }
+        
+        return user(**validated_data, address=address_obj)
+    
+    
