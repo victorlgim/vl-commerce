@@ -3,11 +3,15 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    email = models.EmailField(max_length=127, unique=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    img = models.CharField(max_length=127, blank=True)
     cpf = models.CharField(max_length=11, unique=True)
-    is_seller = models.BooleanField(default=False, blank=True)
-    is_superuser = models.BooleanField(default=False, blank=True)
+    email = models.EmailField(max_length=127, unique=True)
+    is_seller = models.BooleanField(default=False)
+
+    address = models.OneToOneField(
+        "users.Address", on_delete=models.CASCADE, related_name="user"
+    )
 
    
