@@ -8,10 +8,6 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=50)
     cpf = models.CharField(max_length=11, unique=True)
     is_seller = models.BooleanField(default=False, blank=True)
-    address = models.OneToOneField(
-        'address.Address',
-        on_delete=models.CASCADE,
-        related_name='user'
-    )
+    is_superuser = models.BooleanField(default=False, blank=True)
 
    
