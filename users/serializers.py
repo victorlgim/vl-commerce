@@ -64,4 +64,8 @@ class UserSerializer(serializers.ModelSerializer):
         
         return user(**validated_data, address=address_obj)
     
-    
+    def update(self, instance, validated_data):
+        password = validated_data.pop("password")
+        if password:
+            instance.set_password(password)
+        return super().update(instance, validated_data)
