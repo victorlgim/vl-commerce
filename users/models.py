@@ -11,9 +11,9 @@ class User(AbstractUser):
     is_seller = models.BooleanField(default=False)
 
     address = models.OneToOneField(
-        "users.Address", on_delete=models.CASCADE, related_name="user"
+        "users.Address", on_delete=models.CASCADE, related_name="user", 
+        default=None, null=True, blank=True
     )
-
 
 class Address(models.Model):
     street = models.CharField(max_length=127)

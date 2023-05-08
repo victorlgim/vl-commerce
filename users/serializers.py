@@ -47,35 +47,36 @@ class UserSerializer(serializers.ModelSerializer):
             "is_superuser",
             "password",
             "username",
-            "address"
+            "address",
         ]
-
         extra_kwargs = {
-            "id": {
-                "read_only": True
-            },
-            "password": {
-                "write_only": True
-            }
+            "id": {"read_only": True},
+            "password": {"write_only": True},
         }
 
     address = AddressSerializer()
 
     def create(self, validated_data):
         address = validated_data.pop("address")
-        address_obj = Address.objects.create(**address)
+        addres_obj = Address.objects.create(**address)
 
-        user = {
+        user = (
             User.objects.create_superuser
             if validated_data.get("is_superuser")
             else User.objects.create_user
-        }
-        
-        return user(**validated_data, address=address_obj)
-    
+        )
+        return user(**validated_data, address=addres_obj)
+
     def update(self, instance, validated_data):
-        password = validated_data.pop("password")
+        password = validated_data.pop("password", None)
         if password:
             instance.set_password(password)
         return super().update(instance, validated_data)
+
+
+class SellerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["id", "first_name", "last_name", "email"]
+
 
