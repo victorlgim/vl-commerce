@@ -13,7 +13,7 @@ class Order(models.Model):
         max_length=20, choices=StatusOrder.choices, default=StatusOrder.PEDIDO_REALIZADO
     )
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    buyed_at = models.DateTimeField(default=timezone.now)
+    buyed_at = models.DateTimeField(auto_now_add=True)
     buyer = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="orders"
     )
