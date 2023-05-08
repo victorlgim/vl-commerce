@@ -44,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
             "img",
             "email",
             "is_seller",
+            "cpf",
             "is_superuser",
             "password",
             "username",
