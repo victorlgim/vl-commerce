@@ -40,3 +40,17 @@ class ProductSerializer(serializers.ModelSerializer):
                 product.categories.add(categoryExists)
 
             return product
+    
+
+    def update(self, instance, validated_data):
+            categories_data = validated_data.pop("categories")
+
+            for category in categories_data:
+                categoryExists = Category.objects.get_or_create(
+                    name__iexact=category["name"]
+                )
+                instance.categories.add(categoryExists)
+
+            instance.__dict__.update(validated_data)
+            instance.save()
+            return instance 
