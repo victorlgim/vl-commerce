@@ -30,13 +30,11 @@ class ProductSerializer(serializers.ModelSerializer):
             }
         }
     def create(self, validated_data):
-            categories_data = validated_data.pop("categories", [])
+            categories_data = validated_data.pop("categories")
             product = Product.objects.create(**validated_data)
 
             for category in categories_data:
-                categoryExists = Category.objects.get_or_create(
-                    name__iexact=category["name"]
-                )
+                categoryExists = Category.objects.get_or_create(name__iexact=category["name"])
                 product.categories.add(categoryExists)
 
             return product
@@ -46,11 +44,17 @@ class ProductSerializer(serializers.ModelSerializer):
             categories_data = validated_data.pop("categories")
 
             for category in categories_data:
-                categoryExists = Category.objects.get_or_create(
-                    name__iexact=category["name"]
-                )
+                categoryExists = Category.objects.get_or_create(name__iexact=category["name"])
                 instance.categories.add(categoryExists)
 
             instance.__dict__.update(validated_data)
             instance.save()
             return instance 
+    
+    categories = CategorySerializer(many=True)
+    seller = SellerSerializer(read_only=True)
+
+    is_available = serializers.SerializerMethodField()
+
+    def get_is_available(self, obj):
+        return bool(obj.stock)
