@@ -2,13 +2,13 @@ from rest_framework import generics
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Product
 from .serializers import ProductSerializer
-from .permissions import IsAdminOrProductSeller
-from users.permissions import IsAdminOrSellerOrReadOnly
+from .permissions import IsSellerProductOrAdmin
+from users.permissions import IsClientSellerAdmin
 
 
 class ProductView(generics.ListCreateAPIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdminOrSellerOrReadOnly]
+    permission_classes = [IsClientSellerAdmin]
     queryset = Product.objects.all().order_by("id")
     serializer_class = ProductSerializer
 
@@ -26,3 +26,11 @@ class ProductView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
+
+
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsSellerProductOrAdmin]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_url_kwarg = "product_id"
