@@ -29,3 +29,14 @@ class ProductSerializer(serializers.ModelSerializer):
                 "read_only": True
             }
         }
+    def create(self, validated_data):
+            categories_data = validated_data.pop("categories", [])
+            product = Product.objects.create(**validated_data)
+
+            for category in categories_data:
+                categoryExists = Category.objects.get_or_create(
+                    name__iexact=category["name"]
+                )
+                product.categories.add(categoryExists)
+
+            return product
