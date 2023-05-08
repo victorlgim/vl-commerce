@@ -37,12 +37,11 @@ class AddressSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        felds = [
+        fields = [
             "id",
             "first_name",
             "last_name",
             "img",
-            "neighborhood",
             "email",
             "is_seller",
             "is_superuser",
