@@ -6,11 +6,11 @@ from rest_framework.views import status
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
-        fields = ["id", "client", "products"]
+        fields = ["id", "user", "products"]
 
         extra_kwargs = {
             "id": {"read_only": True},
-            "client": {"read_only": True},
+            "user": {"read_only": True},
         }
 
 
@@ -29,9 +29,10 @@ class CartProductsSerializer(serializers.ModelSerializer):
             cart_product = CartProducts.objects.get(cart=cart, product=product)
             quantity += cart_product.quantity
 
-        if product.stock < quantity:
+        if product.inventory < quantity:
             raise serializers.ValidationError(
-                {"message": "Insufficient stock"}, status.HTTP_400_BAD_REQUEST
+                {"message": "Insufficient inventory"}, status.HTTP_400_BAD_REQUEST
             )
 
-        return CartProducts.objects.create(**validated_data, quantity=quantity)
+        return CartProducts.objects.create(**validated_data)
+    

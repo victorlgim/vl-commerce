@@ -16,7 +16,7 @@ class CartView(generics.ListAPIView):
     serializer_class = CartProductsSerializer
 
     def get_queryset(self):
-        cart = get_object_or_404(Cart, id=self.request.user.cart.id)
+        cart = get_object_or_404(Cart)
 
         return CartProducts.objects.filter(cart_id=cart.id)
     
@@ -31,12 +31,12 @@ class CartProductsView(generics.CreateAPIView):
         self.check_object_permissions(self.request, self.request.user)
         product = get_object_or_404(Product, pk=self.kwargs["pk"])
 
-        if not Cart.objects.filter(client_id=self.request.user.id).exists():
-            cart = Cart.objects.create(client=self.request.user)
-            serializer.save(cart=cart, product=product, seller=product.seller)
+        if not Cart.objects.filter(user_id=self.request.user.id).exists():
+            cart = Cart.objects.create(user=self.request.user)
+            serializer.save(cart=cart, product=product)
         else:
             serializer.save(
-                cart=self.request.user.cart, product=product, seller=product.seller
+                cart=self.request.user.cart, product=product
             )
 
 class CartProductDeleteView(generics.DestroyAPIView):

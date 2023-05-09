@@ -41,7 +41,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
         for item in list:
             product = Product.objects.get(id=item.product_id)
-            product.stock = product.stock - item.quantity
+            product.inventory = product.inventory - item.quantity
             product.save()
 
             if product.seller != previous_seller:
