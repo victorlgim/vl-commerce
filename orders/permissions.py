@@ -18,3 +18,11 @@ class IsAdminOrSeller(permissions.BasePermission):
             or request.user.is_authenticated
             and (request.user.is_superuser or request.user.is_seller)
         )
+
+class IsAdminOrSellerOrOwner(permissions.BasePermission):
+    def has_object_permission(self, request, _, obj):
+        return (
+            request.method == "PATCH"
+            or request.user.is_authenticated
+            and (request.user.is_superuser or request.user.is_seller or request.user.id == obj.client_id)
+        )
