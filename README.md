@@ -61,6 +61,16 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+# 🌐 Principais tecnologias
+
+✔️ Django Rest Framework <br>
+✔️ Simple JWT <br>
+✔️ SMTP com Mailtrap.io <br>
+✔️ Generic Views <br>
+✔️ PostgreSQL <br>
+✔️ Swagger UI <br>
+✔️ Render <br>
+
 # 🔔 Dependências externas
 
 Durante o desenvolvimento do VL Commerce, foram utilizadas as seguintes dependências:
@@ -126,6 +136,9 @@ Durante o desenvolvimento do VL Commerce, foram utilizadas as seguintes dependê
     "whitenoise==6.4.0"
   }
 ```
+<br>
+
+
 
 # 👨‍👨‍👦‍👦 Colaboradores
 
