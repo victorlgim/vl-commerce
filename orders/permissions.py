@@ -10,3 +10,11 @@ class IsProductSeller(permissions.BasePermission):
             or request.user.is_authenticated
             and (request.user.is_superuser or request.user.id == order_product.product.seller.id)
         )
+
+class IsAdminOrSeller(permissions.BasePermission):
+    def has_permission(self, request):
+        return (
+            request.method == "POST"
+            or request.user.is_authenticated
+            and (request.user.is_superuser or request.user.is_seller)
+        )
