@@ -1,4 +1,4 @@
-﻿asgiref==3.5.2
+asgiref==3.5.2
 asttokens==2.2.1
 attrs==22.1.0
 backcall==0.2.0
