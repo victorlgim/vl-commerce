@@ -1,11 +1,7 @@
 
-
 <h1 align="center">
   VL Commerce 🛒
 </h1>
-
-
-
 
 <p align = "center">
 VL Commerce é um projeto de e-commerce seguro e complexo, desenvolvido em Django. Com o VL Commerce, os usuários podem facilmente navegar e adquirir diversos tipos de produtos. Além disso, os vendedores podem registrar seus produtos na plataforma e vendê-los para os usuários. Com um processo de checkout simples e seguro, o VL Commerce garante que as transações ocorram de forma rápida e fácil, proporcionando aos usuários a melhor experiência de compra possível.
@@ -61,6 +57,7 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+
 # 🌐 Principais tecnologias
 
 ✔️ Django Rest Framework <br>
@@ -70,6 +67,7 @@ python manage.py runserver
 ✔️ PostgreSQL <br>
 ✔️ Swagger UI <br>
 ✔️ Render <br>
+
 
 # 🔔 Dependências externas
 
@@ -137,7 +135,6 @@ Durante o desenvolvimento do VL Commerce, foram utilizadas as seguintes dependê
   }
 ```
 <br>
-
 
 
 # 👨‍👨‍👦‍👦 Colaboradores
