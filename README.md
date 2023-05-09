@@ -46,10 +46,10 @@ pip install -r requirements.txt
 
 6. Preencha as variáveis de ambiente com a mesma estrutura do .env.example:
 ```  
-#### SECRET_KEY=(Sua senha secreta)
-#### DB_NAME=(Nome do seu banco de dados)
-#### DB_USER=(Nome de usuário)
-#### DB_PASSWORD=(Senha do usuário)
+## SECRET_KEY=(Sua senha secreta)
+## DB_NAME=(Nome do seu banco de dados)
+## DB_USER=(Nome de usuário)
+## DB_PASSWORD=(Senha do usuário)
 ```
 
 7. Certifique-se de executar a aplicação para garantir que tudo esteja funcionando corretamente:
