@@ -15,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "name",
-            "stock",
+            "inventory",
             "is_available",
             "price",
             "description",
@@ -56,5 +56,5 @@ class ProductSerializer(serializers.ModelSerializer):
 
     is_available = serializers.SerializerMethodField()
 
-    def get_is_available(self, obj):
+    def get_is_available(self, obj) -> bool:
         return bool(obj.stock)
