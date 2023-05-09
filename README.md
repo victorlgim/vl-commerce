@@ -4,7 +4,7 @@
 </h1>
 
 <p align = "center">
-VL Commerce é um projeto de e-commerce seguro e complexo, desenvolvido em Django. Com o VL Commerce, os usuários podem facilmente navegar e adquirir diversos tipos de produtos. Além disso, os vendedores podem registrar seus produtos na plataforma e vendê-los para os usuários. Com um processo de checkout simples e seguro, o VL Commerce garante que as transações ocorram de forma rápida e fácil, proporcionando aos usuários a melhor experiência de compra possível.
+VL Commerce é um projeto de e-commerce seguro e complexo, desenvolvido em Django para o Backend e futuramente com Next.js para o Frontend. Com o VL Commerce, os usuários podem facilmente navegar e adquirir diversos tipos de produtos. Além disso, os vendedores podem registrar seus produtos na plataforma e vendê-los para os usuários. Com um processo de checkout simples e seguro, o VL Commerce garante que as transações ocorram de forma rápida e fácil, proporcionando aos usuários a melhor experiência de compra possível.
 </p>
 
 ![aa](https://user-images.githubusercontent.com/109770689/237012074-c2fc8647-2a39-4b9f-9e0e-49bdb051ec9d.jpg)
