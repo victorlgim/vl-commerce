@@ -11,7 +11,7 @@ VL Commerce é um projeto de e-commerce seguro e complexo, desenvolvido em Djang
 
 # 📁 Documentação da API
 
-[Swagger UI](https://vl-commerce.onrender.com/api/docs/swagger-ui/)
+[Swagger UI](https://vlcommerce.onrender.com/api/docs/swagger-ui/)
 
 # 🛠️ Como faço para executar em minha máquina?
 
