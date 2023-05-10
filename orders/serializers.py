@@ -29,16 +29,14 @@ class OrderSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        user = get_object_or_404(User, id=validated_data["client_id"])
-        if not Cart.objects.filter(client_id=user.id).exists():
+        user = get_object_or_404(User, id=validated_data["user_id"])
+        if not Cart.objects.filter(user=user.id).exists():
             raise serializers.ValidationError(
                 {"message": "User has nothing in cart"}, status.HTTP_400_BAD_REQUEST
             )
 
-        list = CartProducts.objects.filter(cart_id=user.cart.id).order_by(
-            "seller"
-        )
-        order = Order.objects.create(**validated_data, price=0)
+        list = CartProducts.objects.filter(cart_id=user.cart.id)
+        order = Order.objects.create(**validated_data, price=0, buyer=user)
         previous_seller = list[0].seller
 
         for item in list:
@@ -80,7 +78,7 @@ class OrderSerializer(serializers.ModelSerializer):
             subject="Update your order",
             message=f'Your order status has been updated to *{validated_data["status"]}*.',
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[instance.user.email],
+            recipient_list=[instance.client.email],
             fail_silently=False,
         )
 

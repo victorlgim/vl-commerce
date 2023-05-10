@@ -3,7 +3,7 @@ from .models import OrderProduct
 
 
 class IsProductSeller(permissions.BasePermission):
-    def has_object_permission(self, request, _, obj):
+    def has_object_permission(self, request, view, obj):
         order_product = OrderProduct.objects.filter(order_id=obj.id).first()
         return (
             request.method == "GET"
@@ -12,7 +12,7 @@ class IsProductSeller(permissions.BasePermission):
         )
 
 class IsAdminOrSeller(permissions.BasePermission):
-    def has_permission(self, request):
+    def has_permission(self, request, view, obj=None):
         return (
             request.method == "POST"
             or request.user.is_authenticated
@@ -20,9 +20,9 @@ class IsAdminOrSeller(permissions.BasePermission):
         )
 
 class IsAdminOrSellerOrOwner(permissions.BasePermission):
-    def has_object_permission(self, request, _, obj):
+    def has_object_permission(self, request, view, obj):
         return (
             request.method == "PATCH"
             or request.user.is_authenticated
-            and (request.user.is_superuser or request.user.is_seller or request.user.id == obj.client_id)
+            and (request.user.is_superuser or request.user.is_seller or request.user.id == obj.user_id)
         )

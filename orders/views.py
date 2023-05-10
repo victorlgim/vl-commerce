@@ -15,7 +15,7 @@ class OrderView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         self.check_object_permissions(self.request, self.request.user)
-        serializer.save(client_id=self.request.user.id)
+        serializer.save(user_id=self.request.user.id)
 
 
 class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
