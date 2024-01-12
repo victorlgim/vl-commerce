@@ -141,10 +141,10 @@ Durante o desenvolvimento do VL Commerce, foram utilizadas as seguintes dependê
 
 <img align="left" width="180" src="https://ca.slack-edge.com/TQZR39SET-U03LP2TTUTZ-8ad150453df2-512" />
 <h2>Project Lead</h2>
-<p>Victor Lima, São Paulo</p>
+<p>Vitor Lima, São Paulo</p>
 
-[Linkedin](https://www.linkedin.com/in/vitor-lima/) <br>
-[Github](https://github.com/victorglim)
+
+
 
 
 
